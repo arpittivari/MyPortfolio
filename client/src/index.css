@@ -1,0 +1,42 @@
+/* client/src/index.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Fira+Code:wght@300..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    /* Main body font for readability */
+    @apply font-sans; 
+    @apply transition-colors duration-300;
+    
+  }
+  
+  /* Apply monospaced font to code elements */
+  code, pre {
+    font-family: 'Fira Code', monospace;
+  }
+
+  /* Global Admin Input Styling */
+  .admin-input {
+    /* Use terminal colors for input focus */
+    @apply w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg 
+           bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 
+           focus:ring-pcb-green focus:border-pcb-green-dark outline-none;
+  }
+  
+  .admin-label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+  }
+
+  /* Admin Table Styling */
+  .admin-th {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300;
+  }
+  
+  .admin-td {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100;
+  }
+}

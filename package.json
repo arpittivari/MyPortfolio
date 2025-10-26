@@ -1,0 +1,25 @@
+{
+  "name": "mern-portfolio-root",
+  "version": "1.0.0",
+  "description": "Root runner for ECE Portfolio",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Run npm run dev to start both servers.'",
+    
+    "// --- INSTALLATION ---": "---",
+    "install-server": "cd server && npm install",
+    "install-client": "cd client && npm install",
+    "install-all": "npm run install-server && npm run install-client",
+
+    "// --- DEVELOPMENT ---": "---",
+    "dev-server": "cd server && npm run dev",
+    "dev-client": "cd client && npm run dev",
+    "dev": "npx concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    
+    "// --- PRODUCTION (for later) ---": "---",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

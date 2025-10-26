@@ -1,0 +1,30 @@
+/* This file is the entry point for all our styles. */
+
+/* 1. Import Google Font: Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* 2. Import Tailwind's base, components, and utilities layers */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 3. Define some base styles for our dark/light mode */
+@layer base {
+  html {
+    /* Smooth scrolling and transitions */
+    scroll-behavior: smooth;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
+  body {
+    /* Light Mode Default */
+    @apply bg-white text-gray-900;
+  }
+
+  .dark body {
+    /* Dark Mode Override */
+    @apply bg-terminal-bg text-terminal-text;
+  }
+}
