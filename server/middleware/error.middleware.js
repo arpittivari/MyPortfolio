@@ -1,16 +1,31 @@
-// A central middleware to handle all thrown errors.
-// This ensures we always send a clean JSON response, not an HTML error page.
+// server/middleware/error.middleware.js - CORRECTED EXPORTS
 
-const errorHandler = (err, req, res, next) => {
-  // If a status code is already set, use it. Otherwise, default to 500 (Server Error).
-  const statusCode = res.statusCode ? res.statusCode : 500;
+import asyncHandler from 'express-async-handler'; // Ensure asyncHandler is installed if used
 
+// Middleware for 404 Not Found errors
+export const notFound = (req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  res.status(404);
+  next(error); // Pass the error to the next middleware (errorHandler)
+};
+
+// General error handling middleware (MUST be the last middleware used)
+export const errorHandler = (err, req, res, next) => {
+  // Determine status code: use error's status code or default to 500
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
+
+  console.error("--- Global Error Handler ---"); // Log the error on the server
+  console.error("Status Code:", statusCode);
+  console.error("Error:", err.message);
+  // console.error("Stack:", process.env.NODE_ENV === 'production' ? null : err.stack); // Optionally hide stack in production
+
+  // Send JSON response to the client
   res.json({
     message: err.message,
-    // Only show the stack trace if we are not in 'production' mode
+    // Only include stack trace in development mode for security
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
 
-export { errorHandler };
+// NOTE: No final export block needed as functions are exported individually above.
