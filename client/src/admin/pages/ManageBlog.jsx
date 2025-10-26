@@ -240,7 +240,7 @@ const ManageBlog = () => {
                   <td className="admin-td text-right"> 
                     <div className="flex justify-end items-center space-x-2"> 
                         <Button variant="secondary" onClick={() => handleEdit(post)} className="!p-2.5 text-blue-400 hover:bg-blue-900/30 bg-blue-900/20" aria-label={`Edit ${post.title}`}><Edit className="w-4 h-4" /></Button>
-                        <Button variant="danger" onClick={() => confirmDelete(post)} className="!p-2.5 text-red-400 hover:bg-red-900/30 bg-red-900/20" aria-label={`Delete ${post.title}`}><Trash2 className="w-4 h-4" /></Button>
+                        <Button variant="danger" onClick={() => confirmDelete(post)} className="!p-2.5 text-red-400 hover:bg-red-300 bg-red-700" aria-label={`Delete ${post.title}`}><Trash2 className="w-4 h-4" /></Button>
                     </div>
                   </td>
                 </tr>

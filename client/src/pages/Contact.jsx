@@ -131,26 +131,37 @@ const Contact = () => {
           </form>
         </div>
 
-        {/* Contact Info (1/3 width on desktop) */}
-        <div className="lg:col-span-1 bg-gray-50 dark:bg-gray-800 p-6 rounded-xl h-fit">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Contact Details</h2>
-          <div className="space-y-4 text-gray-600 dark:text-gray-400">
-            <div className="flex items-center space-x-3">
-              <Mail className="w-5 h-5 flex-shrink-0 text-pcb-green" />
-              <span>your.email@example.com</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Linkedin className="w-5 h-5 flex-shrink-0 text-pcb-green" />
-              <a href="https://linkedin.com/in/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-pcb-green-dark">LinkedIn Profile</a>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Github className="w-5 h-5 flex-shrink-0 text-pcb-green" />
-              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="hover:text-pcb-green-dark">GitHub Repositories</a>
-            </div>
-          </div>
+        <div className="space-y-4 text-gray-600 dark:text-gray-400">
+  <div className="flex items-center space-x-3">
+    <Mail className="w-5 h-5 flex-shrink-0 text-pcb-green" />
+    <span className="text-gray-700 dark:text-gray-300">arpittiwari7549@gmail.com</span>
+  </div>
+  <div className="flex items-center space-x-3">
+    <Linkedin className="w-5 h-5 flex-shrink-0 text-pcb-green" />
+    <a 
+      href="https://www.linkedin.com/in/arpit-tiwari-08b177271" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="hover:text-pcb-green-dark"
+    >
+      LinkedIn Profile
+    </a>
+  </div>
+  <div className="flex items-center space-x-3">
+    <Github className="w-5 h-5 flex-shrink-0 text-pcb-green" />
+    <a 
+      href="https://github.com/arpittivari" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="hover:text-pcb-green-dark"
+    >
+      GitHub Repositories
+              </a>
+             </div>
+           </div>
+          
         </div>
       </div>
-    </div>
   );
 };
 

@@ -1,14 +1,17 @@
+// client/src/components/ui/Button.jsx - FINAL FIX FOR AS="A" PROP
+
 import React from 'react';
 import Loader from './Loader.jsx';
 
 /**
- * A reusable, styled button component.
- * @param {object} props - Standard button props (onClick, type, disabled, children, etc.)
- * @param {string} variant - 'primary' (default) or 'secondary'
- * @param {boolean} isLoading - Shows a loader and disables the button if true.
+ * A reusable styled component that can render as a button or an anchor link.
+ * @param {object} props - Standard props.
+ * @param {'button' | 'a'} as - Component to render (default 'button').
+ * @param {string} variant - 'primary', 'secondary', or 'danger'.
+ * @param {boolean} isLoading - Shows a loader.
  */
-const Button = ({ children, onClick, variant = 'primary', isLoading = false, className = '', ...rest }) => {
-  const baseClasses = 'flex items-center justify-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-4';
+const Button = ({ children, onClick, as = 'button', variant = 'primary', isLoading = false, className = '', ...rest }) => {
+  const baseClasses = 'flex items-center justify-center space-x-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-4 disabled:opacity-70 disabled:cursor-not-allowed';
   
   let variantClasses;
 
@@ -20,19 +23,26 @@ const Button = ({ children, onClick, variant = 'primary', isLoading = false, cla
     variantClasses = 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500/50';
   }
 
+  // CRITICAL FIX: Dynamically determine the component type
+  const Component = as; 
+
+  // If rendering as an anchor tag, 'disabled' property should not be passed to <a>, 
+  // but we can pass it through to the rest of the attributes for simple logic.
+  const isDisabled = isLoading || rest.disabled;
+
   return (
-    <button
+    <Component
       onClick={onClick}
-      className={`${baseClasses} ${variantClasses} ${isLoading ? 'opacity-70 cursor-not-allowed' : ''} ${className}`}
-      disabled={isLoading || rest.disabled}
-      {...rest}
+      className={`${baseClasses} ${variantClasses} ${isDisabled ? 'opacity-70 cursor-not-allowed' : ''} ${className}`}
+      disabled={Component === 'button' ? isDisabled : undefined} // Only pass 'disabled' prop if it's a <button>
+      {...rest} // Pass all other props (href, target, rel, etc.)
     >
       {isLoading ? (
         <Loader size="w-5 h-5" color={variant === 'primary' ? 'text-gray-900' : 'text-gray-100'} />
       ) : (
         children
       )}
-    </button>
+    </Component>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { LayoutDashboard, Code, BookOpen, LogOut, Settings, BarChart3, Users } from 'lucide-react';
+import { LayoutDashboard, Code, BookOpen, LogOut, Settings, BarChart3, Users, Home } from 'lucide-react';
 import Button from '../../components/ui/Button.jsx';
 import ThemeToggle from '../../components/layout/ThemeToggle.jsx';
 
@@ -52,8 +52,18 @@ const AdminLayout = () => {
             </NavLink>
           ))}
         </nav>
-
-        <div className="p-4 border-t border-gray-700">
+           <div className="p-4 border-t border-gray-700 space-y-3"> 
+          <Link
+            to="/" // Link to the public home page
+            className="flex items-center space-x-3 p-3 rounded-lg font-medium transition-colors duration-200 text-gray-300 hover:bg-gray-700"
+            target="_blank" // Optional: Open in new tab
+            rel="noopener noreferrer" // Required with target="_blank"
+          >
+            <Home className="w-5 h-5" />
+            <span>View Public Site</span>
+          </Link>
+        
+          
           <Button 
             onClick={handleLogout} 
             variant="danger" 

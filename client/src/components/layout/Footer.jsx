@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Youtube } from 'lucide-react'; // Ensure Youtube is imported
 
 const Footer = () => {
   return (
@@ -12,9 +12,20 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} Arpit Tiwari. Built with MERN, Tailwind, and a passion for Edge AI.
           </p>
           
+          {/* Social Links Updated */}
           <div className="flex space-x-6 mt-4 md:mt-0">
+            {/* Email Link */}
             <a 
-              href="https://github.com/yourusername" 
+              href="mailto:arpittiwari7549@gmail.com"
+              className="text-gray-600 dark:text-gray-400 hover:text-pcb-green transition-colors duration-200"
+              aria-label="Email Contact"
+            >
+              <Mail className="w-5 h-5" />
+            </a>
+            
+            {/* GitHub Link */}
+            <a 
+              href="https://github.com/arpittivari" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-600 dark:text-gray-400 hover:text-pcb-green transition-colors duration-200"
@@ -22,8 +33,10 @@ const Footer = () => {
             >
               <Github className="w-5 h-5" />
             </a>
+            
+            {/* LinkedIn Link */}
             <a 
-              href="https://linkedin.com/in/yourusername" 
+              href="https://www.linkedin.com/in/arpit-tiwari-08b177271" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-gray-600 dark:text-gray-400 hover:text-pcb-green transition-colors duration-200"
@@ -31,12 +44,16 @@ const Footer = () => {
             >
               <Linkedin className="w-5 h-5" />
             </a>
+            
+            {/* YouTube Link - New */}
             <a 
-              href="mailto:your.email@example.com"
+              href="https://www.youtube.com/@arpittiwari_15" 
+              target="_blank" 
+              rel="noopener noreferrer" 
               className="text-gray-600 dark:text-gray-400 hover:text-pcb-green transition-colors duration-200"
-              aria-label="Email Contact"
+              aria-label="YouTube Channel"
             >
-              <Mail className="w-5 h-5" />
+              <Youtube className="w-5 h-5" />
             </a>
           </div>
 
