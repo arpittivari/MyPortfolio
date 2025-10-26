@@ -16,44 +16,7 @@ const generateToken = (id) => {
  * @route   POST /api/auth/register
  * @access  Public (for now, to create the first admin)
  */
-export const registerUser = asyncHandler(async (req, res) => {
-  const { username, email, password } = req.body;
 
-  if (!username || !email || !password) {
-    res.status(400);
-    throw new Error('Please include all fields.');
-  }
-
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    res.status(400);
-    throw new Error('User already exists');
-  }
-
-  try {
-    // Let the pre-save hook handle hashing
-    const user = await User.create({ username, email, password });
-
-    if (user) {
-      res.status(201).json({
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        token: generateToken(user._id),
-        message: 'Registration successful',
-      });
-    } else {
-      // Should not happen if create doesn't throw, but defensive check
-      res.status(400);
-      throw new Error('Invalid user data - Failed to create user');
-    }
-  } catch (error) {
-      // Catch errors during User.create (e.g., validation, hashing hook failure)
-      console.error("Registration Error:", error);
-      res.status(500); // Internal server error
-      throw new Error('User registration failed: ' + error.message);
-  }
-});
 /**
  * @desc    Authenticate (login) an admin user
  * @route   POST /api/auth/login

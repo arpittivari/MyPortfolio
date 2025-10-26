@@ -8,8 +8,7 @@ import About from './pages/About.jsx';
 import Blog from './pages/Blog.jsx';
 import BlogPost from './pages/BlogPost.jsx';
 import NotFound from './pages/NotFound.jsx';
-// NEW:
-import AdminSignup from './admin/pages/AdminSignup.jsx';
+// NEW: import AdminSignup from './admin/pages/AdminSignup.jsx';
 // Admin Imports
 import AdminLayout from './admin/components/AdminLayout.jsx';
 import ProtectedRoute from './admin/utils/ProtectedRoute.jsx';
@@ -47,9 +46,7 @@ function App() {
         =====================================================
       */}
       {/* Login route is outside the protected area */}
-      <Route path="/admin/login" element={<Login />} />
-      
-<Route path="/admin/register" element={<AdminSignup />} />
+      //<Route path="/admin/login" element={<Login />} />
       {/* Protected routes are wrapped by the ProtectedRoute and AdminLayout */}
       <Route element={<ProtectedRoute />}>
         <Route path="/admin" element={<AdminLayout />}>

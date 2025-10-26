@@ -92,12 +92,6 @@ const Login = () => {
             <LogIn className="w-5 h-5 mr-2" />
             Sign In
           </Button>
-          <p className="mt-6 text-center text-sm text-gray-500 dark:text-gray-400">
-    No account yet? 
-    <Link to="/admin/register" className="text-pcb-green hover:underline ml-1">
-        Create Admin Account
-    </Link>
-    </p>
         </form>
       </div>
     </div>
