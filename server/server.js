@@ -1,58 +1,71 @@
+// server/server.js
+
 import express from 'express';
-import colors from 'colors';
-import cors from 'cors';
 import dotenv from 'dotenv';
+import cors from 'cors'; // Import cors
 import connectDB from './config/db.js';
-import { errorHandler } from './middleware/error.middleware.js';
-import contactRoutes from './routes/contact.routes.js';
-// --- Import Routes ---
+import cookieParser from 'cookie-parser';
+// Import routes...
 import authRoutes from './routes/auth.routes.js';
 import projectRoutes from './routes/project.routes.js';
 import skillRoutes from './routes/skill.routes.js';
 import blogRoutes from './routes/blog.routes.js';
-import aiRoutes from './routes/ai.routes.js';
 import analyticsRoutes from './routes/analytics.routes.js';
+import aiRoutes from './routes/ai.routes.js';
+import contactRoutes from './routes/contact.routes.js';
+// Import error middleware...
+import { notFound, errorHandler } from './middleware/error.middleware.js';
 
-// --- Load Environment Variables ---
 dotenv.config();
-
-// --- Connect to Database ---
 connectDB();
-
-// --- Initialize Express App ---
 const app = express();
 
-// --- Middleware ---
-// Enable CORS
-app.use(cors());
-// Body parser for JSON
-app.use(express.json());
-// Body parser for URL-encoded data
-app.use(express.urlencoded({ extended: true }));
+// --- CORS Configuration ---
+const allowedOrigins = [
+    'http://localhost:5173', // Your local frontend dev port
+    'http://localhost:5174', // Your local frontend dev port (alternative)
+    'https://my-portfolio-eta-beige-68.vercel.app' // Your DEPLOYED Vercel Frontend URL
+];
 
-// --- API Routes ---
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true // If you need cookies/sessions later
+};
+
+app.use(cors(corsOptions)); // Use configured CORS options
+// --- End CORS Configuration ---
+
+
+// Middleware
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
 app.use('/api/blog', blogRoutes);
+app.use('/api/analytics', analyticsRoutes);
 app.use('/api/ai', aiRoutes);
-app.use('/api/analytics', analyticsRoutes);
-app.use('/api/analytics', analyticsRoutes);
 app.use('/api/contact', contactRoutes);
-// --- Health Check Route ---
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'UP', message: 'Server is healthy' });
+
+// Simple root route for testing deployment
+app.get('/', (req, res) => {
+  res.send('API is running...');
 });
 
-// --- Central Error Handler ---
-// This MUST be after all the routes
+// Error Middleware
+app.use(notFound);
 app.use(errorHandler);
 
-// --- Start Server ---
 const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => {
-  console.log(
-    `🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold
-  );
-});
-
+app.listen(PORT, () => console.log(`🚀 Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`));
