@@ -1,13 +1,20 @@
-// client/src/services/api.js
-
 import axios from 'axios';
 
-const api = axios.create({
-  baseURL: 'http://localhost:5001/api', 
-  timeout: 10000, // Increased timeout
-  headers: {'Content-Type': 'application/json'},
-});
+// Define the API URL using the Vite environment variable
+// Fallback to localhost:5001/api if the VITE_ variable isn't set (for local dev)
+const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001/api'; 
 
+// Log the URL being used - helpful for debugging deployment issues
+console.log("Using API Base URL:", API_URL); 
+
+// Create the Axios instance
+const api = axios.create({
+  baseURL: API_URL, // Use the defined variable here
+  timeout: 10000, 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 // REQUEST INTERCEPTOR
 api.interceptors.request.use(
   (config) => {
